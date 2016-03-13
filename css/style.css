@@ -1,0 +1,30 @@
+/*===========================================
+General Styles
+=============================================*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  background-image: url("http://static.hdw.eweb4.com/media/wallpapers_2560x1600/photography/1/1/morning-dew-on-the-grass-photography-hd-wallpaper-2560x1600-6979.jpg");
+  height: 100vh;
+  margin: 0 auto; /*all our rows will be centered*/
+  background-repeat: no-repeat;
+  /*background-size: cover;*/
+  background-size: 100% 100%;;
+
+}
+body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial;
+  max-width: 1500px; /*this is the only value that is absolute and in px*/
+}
