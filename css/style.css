@@ -13,18 +13,38 @@ html{
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 
-  background-image: url("http://static.hdw.eweb4.com/media/wallpapers_2560x1600/photography/1/1/morning-dew-on-the-grass-photography-hd-wallpaper-2560x1600-6979.jpg");
   height: 100vh;
   margin: 0 auto; /*all our rows will be centered*/
-  background-repeat: no-repeat;
-  /*background-size: cover;*/
-  background-size: 100% 100%;;
-
 }
 body{
+	background-image: url("http://static.hdw.eweb4.com/media/wallpapers_2560x1600/photography/1/1/morning-dew-on-the-grass-photography-hd-wallpaper-2560x1600-6979.jpg");
+    background-repeat: no-repeat;
+  background-size: 100% 100%;
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: Arial;
+  font-family: Lato, Arial;
   max-width: 1500px; /*this is the only value that is absolute and in px*/
+  color: #fff;
+  /*vertical/horizontal centering of container div*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.container {
+  opacity: 0.8;
+}
+
+h1{
+
+	font-weight: 300; 
+	color: #fff;
+	font-size: 1000%; /*relative to the html global fontsize which is at 20px*/
+	word-spacing: 4px;
+	letter-spacing: 1px;
+}
+span {
+	font-size: 50%;
+}
+
