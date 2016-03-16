@@ -1,24 +1,43 @@
 
 
 //create an object with random pictures that relate to time and weather of forecast
-//http://nominature.com/wp-content/uploads/2015/12/sunsets-calm-afternoon-lake-beautiful-sunset-clouds-building-trees-walkway-wallpaper-pictures-free.jpg
-//http://www.hdwallpaperup.com/wp-content/uploads/2015/01/Sunset-on-Malibu-Beach-California.jpg
-//http://archwall.xyz/wp-content/uploads/2015/12/other-chinese-market-photography-china-nightlife-wonderful-great-skyphoenixx1-amazing-evening-lights-night-awesome-outstanding-adorable-stunning-nice-fantastic-marvellous-trees-architecture-.jpg
-//http://2.bp.blogspot.com/_UeKpPmoedmk/TJttTsVSoZI/AAAAAAAAAik/161bEYBfUuc/s1600/Black%2Band%2BWhite%2BLos%2BAngeles%2BHarbor%2BWalp%2BTLG.png
-//
+
+var longitude;
+var latitude;
+(function geoloc() {
+	//firefox/safari will allow for local html/css/js file to receive geolocation, chrome does not!!!
+	//iife function to grab the location of the user
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(getPosition);
+		console.log(navigator.geolocation.getCurrentPosition(getPosition));
+	
+	}
+	else{
+		//message received if geolocation service is unavailable
+		console.log("no geolocation available!")
+	};
+})();
+function getPosition(position) {
+	//stores long/lats of client-side user
+	//still unsure of what parameter "position" is referring to getCurrentPosition takes in a callback
+		longitude = position.coords.longitude;
+		latitude = position.coords.latitude;
+};
 
 
 $.ajax({
-  url: "http://api.wunderground.com/api/6ebce84ea19d610e/conditions/q/CA/Fullerton.json",
+	//need to create a fallback/default url for when the user doesn want to share geolocation...
+  url: "http://api.wunderground.com/api/6ebce84ea19d610e/geolookup/q/" + longitude + "," + latitude + ".json",
   dataType: "json",
   success: function(response) {
     console.log(response);
+
   }
 });
 
 function clock() {
 
-	var greetings = ['Good Morning!', "Good Afternoon", "Good Evening", "get some sleep!"];
+	var greetings = ['good morning!', "good afternoon!", "good evening!", "get some sleep!"];
 	var wallpaper = [
 		'http://www.hdwallpaperup.com/wp-content/uploads/2015/01/Sunset-on-Malibu-Beach-California.jpg',
 		'http://archwall.xyz/wp-content/uploads/2015/12/other-chinese-market-photography-china-nightlife-wonderful-great-skyphoenixx1-amazing-evening-lights-night-awesome-outstanding-adorable-stunning-nice-fantastic-marvellous-trees-architecture-.jpg',
@@ -45,17 +64,21 @@ function clock() {
 		hours = hours - 12;
 		ampm = "PM";
 	}
-	if(hours >= 1 && ampm === "PM") {
+	if((hours >= 1 && ampm === "PM") &&(hours < 6 && ampm === "PM")) {
+		//if 1pm - 6pm, greet with good afternoon, wallpaper[0] as the bgimage
 		timeOfDay = 1;
-		document.body.style.backgroundImage = "url(" + wallpaper[0] + ");";
-	}if(hours >= 6 && ampm === "PM") {
+		document.body.style.backgroundImage = "url(" + wallpaper[0] + ")";
+	}if((hours >= 6 && ampm === "PM") && (hours < 12 && ampm === "PM")) {
+		//if 6pm - 1159pm, greet with good evening, wallpaper[1] as the bgimage
 		timeOfDay = 2;
-		document.body.style.backgroundImage = "url(" + wallpaper[1] + ");";
-	}if(hours >= 11 && ampm === "PM") {
+		document.body.style.backgroundImage = "url(" + wallpaper[1] + ")";
+	}if((hours >= 11 && ampm === "PM") && (hours < 5 && ampm === "AM")) {
+		//if 11pm - 5am, greet with go to sleep, wallpaper[2] as the bgimage
 		timeOfDay = 3;
-		document.body.style.backgroundImage = "url(" + wallpaper[2] + ");";
-	}if(hours >= 5 && ampm === "AM") {
-		document.body.style.backgroundImage = "url(" + wallpaper[3] + ");";
+		document.body.style.backgroundImage = "url(" + wallpaper[2] + ")";
+	}if((hours >= 5 && ampm === "AM") && (hours < 12 && ampm === "AM")) {
+		//if 5am - 1159am, greet with good morning, wallpaper[3] as the bgimage
+		document.body.style.backgroundImage = "url(" + wallpaper[3] + ")";
    	}
 	if(minutes < 10) {
 		//add 0 for single digits, like a normal digital clock would read
@@ -74,27 +97,48 @@ clock();
 
 (function today() {
 	var currentDate = new Date();
+	//get current date with constructor function, ready to parse the string
 	Date.prototype.monthNames = [
+	//prototype array of all the months since the date string is in digits
     "January", "February", "March",
     "April", "May", "June",
     "July", "August", "September",
     "October", "November", "December"
 	];
-
 	Date.prototype.dayNames = ["Sunday","Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-   
+	//prototype array of all the day since the date string is in digits 
 	Date.prototype.getDayName = function() {
+	//prototype function that retrieves today's day/month as a digit and turns it into a string using the arrays above
 	    return this.dayNames[this.getDay()];
 	};
-
 	Date.prototype.getMonthName = function() {
+		//"this" points to the currentdate/Date obj/constructor funciton
+		//getMonth/getDay etc are all built in function of the date obj/constructor
 	    return this.monthNames[this.getMonth()];
 	};
 	Date.prototype.getShortMonthName = function () {
+		//function isn't used yet unless we want abbreviated months
 	    return this.getMonthName().substr(0, 3);
+	};
+	Date.prototype.getDaySuffix = function() {
+		//add number suffix to the getdate function
+		var suffix = "th"
+		var dateNumber = currentDate.getDate().toString();
+		if (dateNumber[0] === 0) {
+			dateNumber = dateNumber.subtr[1];
+		}
+		if (dateNumber === "1" || dateNumber === "21" || dateNumber === "31"){
+			suffix = "st";
+		}
+		if (dateNumber === "2" || dateNumber === "22"){
+			suffix = "nd";
+		}if (dateNumber === "3" || dateNumber === "23"){
+			suffix = "rd";
+		}
+		return currentDate.getDate() + "<sup>" + suffix + "</sup>";
 	};
 	var date = document.getElementById('date');
 	date.innerHTML = "<h2>" + "Today is " + currentDate.getDayName() + ", " + currentDate.getMonthName() + " " + 
-	currentDate.getDate() + ", " + currentDate.getFullYear() + "</h2>";
+	currentDate.getDaySuffix() + " "  + currentDate.getFullYear() + "</h2>";
+})();
 
-})()

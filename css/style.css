@@ -36,15 +36,20 @@ body{
   opacity: 0.8;
 }
 
-h1{
-
+h1 {
 	font-weight: 300; 
 	color: #fff;
 	font-size: 1000%; /*relative to the html global fontsize which is at 20px*/
 	word-spacing: 4px;
 	letter-spacing: 1px;
 }
+h2 {
+	font-size: 200%;
+}
 span {
 	font-size: 50%;
 }
 
+sup {
+	font-size: 65%;
+}
