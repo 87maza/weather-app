@@ -22,18 +22,19 @@ function getPosition(position) {
 	//still unsure of what parameter "position" is referring to getCurrentPosition takes in a callback
 		longitude = position.coords.longitude;
 		latitude = position.coords.latitude;
+		$.ajax({
+			//need to create a fallback/default url for when the user doesn want to share geolocation...
+
+			//http://api.wunderground.com/api/API_KEY/37.252194,-121.360474.json
+		  url: "http://api.wunderground.com/api/6ebce84ea19d610e/conditions/forecast/alert/q/" + latitude + "," + longitude + ".json",
+		  dataType: "json",
+		  success: function(response) {
+		  	console.log("scucesd")
+		    console.log(response);
+		  }
+		});
 };
 
-
-$.ajax({
-	//need to create a fallback/default url for when the user doesn want to share geolocation...
-  url: "http://api.wunderground.com/api/6ebce84ea19d610e/geolookup/q/" + longitude + "," + latitude + ".json",
-  dataType: "json",
-  success: function(response) {
-    console.log(response);
-
-  }
-});
 
 function clock() {
 
@@ -52,7 +53,7 @@ function clock() {
 	var ampm = "AM";
 	//am by default
 	var hours = currentTime.getHours();
-	//logic is set to military time
+	//getHours set to military time
 	var minutes = currentTime.getMinutes();
 	var seconds = currentTime.getSeconds();
 	if(hours === 0) {
@@ -72,7 +73,7 @@ function clock() {
 		//if 6pm - 1159pm, greet with good evening, wallpaper[1] as the bgimage
 		timeOfDay = 2;
 		document.body.style.backgroundImage = "url(" + wallpaper[1] + ")";
-	}if((hours >= 11 && ampm === "PM") && (hours < 5 && ampm === "AM")) {
+	}if((hours >= 1 && ampm === "AM") && (hours < 5 && ampm === "AM")) {
 		//if 11pm - 5am, greet with go to sleep, wallpaper[2] as the bgimage
 		timeOfDay = 3;
 		document.body.style.backgroundImage = "url(" + wallpaper[2] + ")";
@@ -141,4 +142,5 @@ clock();
 	date.innerHTML = "<h2>" + "Today is " + currentDate.getDayName() + ", " + currentDate.getMonthName() + " " + 
 	currentDate.getDaySuffix() + " "  + currentDate.getFullYear() + "</h2>";
 })();
+
 
