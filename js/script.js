@@ -17,6 +17,11 @@ var latitude;
 		console.log("no geolocation available!")
 	};
 })();
+var tempNowF;
+var tempNowC;
+//clear, cloudy, sunny, rain, windy, snow, https://icons.wxug.com/i/c/v4/nt_clear.svg, 
+//https://icons.wxug.com/i/c/v4/nt_cloudy.svg, https://icons.wxug.com/i/c/v4/nt_partlycloudy.svg,
+//https://icons.wxug.com/i/c/v4/nt_rain.svg, https://icons.wxug.com/i/c/v4/sunny.svg
 function getPosition(position) {
 	//stores long/lats of client-side user
 	//still unsure of what parameter "position" is referring to getCurrentPosition takes in a callback
@@ -32,10 +37,10 @@ function getPosition(position) {
 		    var cityStateZip = response.current_observation.display_location.full + " " + response.current_observation.display_location.zip;
 		    console.log(response);
 		    var weather_text = response.forecast.txt_forecast.forecastday[0].fcttext;
-		    var tempNowF = response.current_observation.temp_f;
-		    var tempNowC = response.current_observation.temp_c;
+		    tempNowF = response.current_observation.temp_f;
+		    tempNowC = response.current_observation.temp_c;
 		    var highlowF = response.forecast.simpleforecast.forecastday[0].low.fahrenheit + " &mdash; " + response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
-		    console.log(highlowF)
+		    console.log(highlowF);
 		  }
 		});
 };
