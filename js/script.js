@@ -29,8 +29,13 @@ function getPosition(position) {
 		  url: "http://api.wunderground.com/api/6ebce84ea19d610e/conditions/forecast/alert/q/" + latitude + "," + longitude + ".json",
 		  dataType: "json",
 		  success: function(response) {
-		  	console.log("scucesd")
+		    var cityStateZip = response.current_observation.display_location.full + " " + response.current_observation.display_location.zip;
 		    console.log(response);
+		    var weather_text = response.forecast.txt_forecast.forecastday[0].fcttext;
+		    var tempNowF = response.current_observation.temp_f;
+		    var tempNowC = response.current_observation.temp_c;
+		    var highlowF = response.forecast.simpleforecast.forecastday[0].low.fahrenheit + " &mdash; " + response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
+		    console.log(highlowF)
 		  }
 		});
 };
