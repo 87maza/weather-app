@@ -40,7 +40,12 @@ function getPosition(position) {
 		    tempNowF = response.current_observation.temp_f;
 		    tempNowC = response.current_observation.temp_c;
 		    var highlowF = response.forecast.simpleforecast.forecastday[0].low.fahrenheit + " &mdash; " + response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
-		    console.log(highlowF);
+		    var weatherNow = document.getElementById('weatherNow');
+		    var weather_sentence = document.getElementById('weather_text');
+		    weatherNow.innerHTML = "<h4> Current Status: " + tempNowF + '&deg; F' + "  " + "("+ tempNowC + '&deg; C' + ")" + "</h4>";
+		    weather_sentence.innerHTML = "<p>" + weather_text + "</p>";
+		    var city = document.getElementById('city');
+		    city.innerHTML = "<h3>" + response.current_observation.display_location.full + " Weather Report:" + "</h3>";
 		  }
 		});
 };
@@ -51,7 +56,7 @@ function clock() {
 	var greetings = ['good morning!', "good afternoon!", "good evening!", "get some sleep!"];
 	var wallpaper = [
 		'http://www.hdwallpaperup.com/wp-content/uploads/2015/01/Sunset-on-Malibu-Beach-California.jpg',
-		'http://archwall.xyz/wp-content/uploads/2015/12/other-chinese-market-photography-china-nightlife-wonderful-great-skyphoenixx1-amazing-evening-lights-night-awesome-outstanding-adorable-stunning-nice-fantastic-marvellous-trees-architecture-.jpg',
+		'http://archwall.xyz/wp-content/uploads/2016/03/bridges-wonderful-view-thames-night-river-city-bridge-lights-ship-wallpaper-gallery.jpg',
 		'http://2.bp.blogspot.com/_UeKpPmoedmk/TJttTsVSoZI/AAAAAAAAAik/161bEYBfUuc/s1600/Black%2Band%2BWhite%2BLos%2BAngeles%2BHarbor%2BWalp%2BTLG.png',
 		'http://static.hdw.eweb4.com/media/wallpapers_2560x1600/photography/1/1/morning-dew-on-the-grass-photography-hd-wallpaper-2560x1600-6979.jpg'
 	];
