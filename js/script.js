@@ -39,13 +39,16 @@ function getPosition(position) {
 		    var weather_text = response.forecast.txt_forecast.forecastday[0].fcttext;
 		    tempNowF = response.current_observation.temp_f;
 		    tempNowC = response.current_observation.temp_c;
-		    var highlowF = response.forecast.simpleforecast.forecastday[0].low.fahrenheit + " &mdash; " + response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
+		    var highlowF = response.forecast.simpleforecast.forecastday[0].low.fahrenheit + '&deg; F' + " &mdash; " + response.forecast.simpleforecast.forecastday[0].high.fahrenheit + '&deg; F';
+		    var highlowC = response.forecast.simpleforecast.forecastday[0].low.celsius + '&deg; C' + " &mdash; " + response.forecast.simpleforecast.forecastday[0].high.celsius + '&deg; C';
 		    var weatherNow = document.getElementById('weatherNow');
 		    var weather_sentence = document.getElementById('weather_text');
 		    weatherNow.innerHTML = "<h4> Current Status: " + tempNowF + '&deg; F' + "  " + "("+ tempNowC + '&deg; C' + ")" + "</h4>";
 		    weather_sentence.innerHTML = "<p>" + weather_text + "</p>";
 		    var city = document.getElementById('city');
 		    city.innerHTML = "<h3>" + response.current_observation.display_location.full + " Weather Report:" + "</h3>";
+		    var highlows = document.getElementById('highsLows') 
+		    highlows.innerHTML = "<p> Lows &amp; Highs: " + highlowF + "(" + highlowC + ")" + '</p>'
 		  }
 		});
 };
