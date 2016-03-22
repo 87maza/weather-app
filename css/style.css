@@ -54,22 +54,23 @@ sup {
 	font-size: 65%;
 }
 
-.weather{
-  font-family: 70%;
-  color: black;
-}
-
 .svg{
   width: 40px;
   height: 40px;
 }
 
-#weather{
+.weather{
   height: 200px;
   width: 350px;
   background-color: rgba(92,127,134, 0.9);
   border: 3px solid black;
   border-radius: 4px;
+  line-height: 120%;
+}
+
+.weather img {
+  height: 40px;
+  width: 40px
 }
 
 

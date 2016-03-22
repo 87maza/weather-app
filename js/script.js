@@ -5,8 +5,8 @@
 var longitude;
 var latitude;
 (function geoloc() {
-	//firefox/safari will allow for local html/css/js file to receive geolocation, chrome does not!!!
-	//iife function to grab the location of the user
+		//firefox/safari will allow for local html/css/js file to receive geolocation, chrome does not!!!
+		//iife function to grab the location of the user
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(getPosition);
 		console.log(navigator.geolocation.getCurrentPosition(getPosition));
@@ -19,12 +19,10 @@ var latitude;
 })();
 var tempNowF;
 var tempNowC;
-//clear, cloudy, sunny, rain, windy, snow, https://icons.wxug.com/i/c/v4/nt_clear.svg, 
-//https://icons.wxug.com/i/c/v4/nt_cloudy.svg, https://icons.wxug.com/i/c/v4/nt_partlycloudy.svg,
-//https://icons.wxug.com/i/c/v4/nt_rain.svg, https://icons.wxug.com/i/c/v4/sunny.svg
+
 function getPosition(position) {
-	//stores long/lats of client-side user
-	//still unsure of what parameter "position" is referring to getCurrentPosition takes in a callback
+		//stores long/lats of client-side user
+		//still unsure of what parameter "position" is referring to getCurrentPosition takes in a callback
 		longitude = position.coords.longitude;
 		latitude = position.coords.latitude;
 		$.ajax({
@@ -48,7 +46,17 @@ function getPosition(position) {
 		    var city = document.getElementById('city');
 		    city.innerHTML = "<h3>" + response.current_observation.display_location.full + " Weather Report:" + "</h3>";
 		    var highlows = document.getElementById('highsLows') 
-		    highlows.innerHTML = "<p> Lows &amp; Highs: " + highlowF + "(" + highlowC + ")" + '</p>'
+		    highlows.innerHTML = "<p> Lows &amp; Highs: " + highlowF + " (" + highlowC + ")" + '</p>';
+		    var icon = document.getElementById('weather-icon');
+	    	var condition_type = response.forecast.simpleforecast.forecastday[0].conditions.toLowerCase();
+		    var conditions = "https://icons.wxug.com/i/c/v4/" + condition_type + ".svg";
+		    if(new Date().getHours() >= 18) {
+		    	conditions = "https://icons.wxug.com/i/c/v4/nt_" + condition_type;
+		    	console.log(conditions);
+		    }
+		    icon.innerHTML = "<img src=\'" + conditions + "\'>"
+
+		//clear, cloudy, sunny, rain, fog, windy, snow, https://icons.wxug.com/i/c/v4/nt_clear.svg, 
 		  }
 		});
 };
